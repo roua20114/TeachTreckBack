@@ -19,12 +19,12 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(email);
         if(optionalUserEntity.isEmpty()){
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
         UserEntity userEntity = optionalUserEntity.get();
-        return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.singletonList(userEntity.getRole()));
+        return new User(userEntity.getEmail(), userEntity.getPassword(), Collections.singletonList(userEntity.getRole()));
     }
 }

@@ -6,12 +6,17 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @Document(collection = "answers")
 public class Answers {
     @Id
     private String answerId;
-    private Questions questions;
-    private Student student;
+    private String questionId;
+    private String examId;   // ID of the exam being answered
+    private String studentId;  // ID of the student who answered
+    private Map<String, String> userResponse; // A map of question to student answers
+    private Integer score;
 }

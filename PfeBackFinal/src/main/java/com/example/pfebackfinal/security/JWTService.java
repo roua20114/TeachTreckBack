@@ -17,7 +17,7 @@ public class JWTService {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String USERNAME_CLAIM = "username";
 
-    @Value("${jwt.secret:secret}")
+    @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.validity:60}")
@@ -28,11 +28,11 @@ public class JWTService {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MINUTE, tokenValidity);
             Date expiresAt = calendar.getTime();
-            String signedJWT = JWT.create()
+            return JWT.create()
                     .withClaim(USERNAME_CLAIM, username)
                     .withExpiresAt(expiresAt)
                     .sign(Algorithm.HMAC256(secret));
-            return TOKEN_PREFIX.concat(signedJWT);
+
         } catch (Exception e) {
             throw new ApplicationException("cannot_generate_token");
         }
@@ -44,7 +44,7 @@ public class JWTService {
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secret)).build();
             jwtVerifier.verify(token);
         } catch (Exception e) {
-            throw new ApplicationException("invalid_token_signature");
+            throw new ApplicationException("invalid_token_signaturee");
         }
     }
 

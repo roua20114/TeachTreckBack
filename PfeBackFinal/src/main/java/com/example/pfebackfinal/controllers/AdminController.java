@@ -6,6 +6,7 @@ import com.example.pfebackfinal.presistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/private/admin-resources")
-@PreAuthorize("hasAuthority('ADMIN')")
+
+@CrossOrigin(origins="http://localhost:4200")
 public class AdminController {
     private final UserRepository userRepository;
 
@@ -28,4 +30,5 @@ public class AdminController {
         users = users.stream().filter(Student.class::isInstance).toList();
         return ResponseEntity.ok(users);
     }
+
 }

@@ -11,9 +11,10 @@ import org.springframework.security.core.userdetails.User;
 @Setter
 @Document(collection = "comments")
 public class Comments {
-    @Id
-    private String commentId;
+
+
     private String content;
-    private User user;
+    private String authorId;
+    private String studentId;
 
 }

@@ -4,7 +4,10 @@ package com.example.pfebackfinal.presistence.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Questions {
     @Id
     private String questionId;
-    private String content;
+    private String question;
+    private String correct_response;
+
+    @DBRef
+    private Exams exam;
+
 
 }

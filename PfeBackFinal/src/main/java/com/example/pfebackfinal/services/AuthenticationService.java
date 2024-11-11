@@ -31,18 +31,18 @@ public class AuthenticationService {
     private final JWTService jwtService;
 
     public LoginResponse login(LoginRequest loginRequest) {
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(loginRequest.username());
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(loginRequest.email());
         if(optionalUserEntity.isEmpty()){
-            throw new ApplicationException("User not found with email: " + loginRequest.username());
+            throw new ApplicationException("User not found with email: " + loginRequest.email());
         }
         UserEntity userEntity = optionalUserEntity.get();
         boolean PasswordMatches = passwordEncoder.matches(loginRequest.password(), userEntity.getPassword());
         if(!PasswordMatches){
             throw new ApplicationException("Invalid password");
         }
-        String generatedToken = jwtService.generateToken(userEntity.getUsername());
+        String generatedToken = jwtService.generateToken(userEntity.getEmail());
         ApplicationUtils.setHeaderValue(HttpHeaders.AUTHORIZATION, generatedToken);
-        return new LoginResponse(userEntity.getEmail(), userEntity.getRole().name(),generatedToken);
+        return new LoginResponse(userEntity.getEmail(),userEntity.getRole().name(),generatedToken, userEntity.getUsername(),userEntity.getUniversity(),userEntity.getGender(),userEntity.getMobile(),userEntity.getAddress(),userEntity.getId(),userEntity.getProfilePictureUrl());
     }
 
     public void register(RegisterRequest registerRequest) {

@@ -10,4 +10,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Teacher extends UserEntity{
     private String department;
     private String domain;
+
 }

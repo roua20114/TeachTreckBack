@@ -8,4 +8,6 @@ public interface ITeacherService {
     Optional<Teacher> getProfileByEmail(String email);
     Teacher updateProfile(String email, Teacher updatedTeacher);
     void deleteProfile(String email);
+    Teacher findByEmail(String email);
+    Teacher findTeacherByUsername(String username);
 }

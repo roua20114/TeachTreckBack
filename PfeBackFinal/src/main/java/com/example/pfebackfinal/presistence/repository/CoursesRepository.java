@@ -7,8 +7,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CoursesRepository extends MongoRepository<Courses,String> {
-    List<Courses> findByTeacherId(String teacherId);
-//    Optional<Courses> updateByTeacherId(String teacherId);
+    List<Courses> findByTeacher_Id(String teacherId);
+    List<Courses> findByClassroomId(String classroomId);
+
+
+    List<Courses> findByTitleContainingIgnoreCase(String keyword);
+    List<Courses> findByTeacherIdAndClassroomId(String teacherId, String classroomId);
+
+
 
 
 }

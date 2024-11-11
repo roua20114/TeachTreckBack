@@ -15,7 +15,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUsernameNotFoundException() {
-        ErrorResponse errorResponse = new ErrorResponse("the provided username is not found");
+        ErrorResponse errorResponse = new ErrorResponse("the provided email is not found");
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 

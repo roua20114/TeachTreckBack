@@ -48,8 +48,8 @@ public class AccessTokenFilter extends OncePerRequestFilter {
             final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.hasText(authHeader)) {
                 jwtService.validateTokenSignature(authHeader);
-                final String username = jwtService.getClaim(authHeader, JWTService.USERNAME_CLAIM);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                final String email = jwtService.getClaim(authHeader, JWTService.USERNAME_CLAIM);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
                 if (userDetails != null) {
                     if (!userDetails.isEnabled()) {
                         log.error("User is disabled");
